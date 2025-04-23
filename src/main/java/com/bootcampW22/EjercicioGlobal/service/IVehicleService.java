@@ -23,4 +23,6 @@ public interface IVehicleService {
     List<VehicleDto> findFuelByType(String type);
 
     ResponseDto deleteVehicle(Long id);
+
+    List<VehicleDto> searchByTransmission(String type);
 }

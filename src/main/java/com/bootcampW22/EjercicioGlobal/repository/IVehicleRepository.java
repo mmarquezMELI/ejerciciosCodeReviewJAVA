@@ -26,4 +26,6 @@ public interface IVehicleRepository {
     Boolean exist(Long id);
 
     void deleteVehicle(Vehicle vehicle);
+
+    List<Vehicle> findByTransmission(String transmission);
 }

@@ -86,4 +86,9 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
     public void deleteVehicle(Vehicle vehicle) {
         listOfVehicles.remove(vehicle);
     }
+
+    @Override
+    public List<Vehicle> findByTransmission(String transmission) {
+        return listOfVehicles.stream().filter(x -> x.getTransmission().equals(transmission)).toList();
+    }
 }

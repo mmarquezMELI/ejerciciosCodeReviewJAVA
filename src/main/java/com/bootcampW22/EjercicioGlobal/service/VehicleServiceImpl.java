@@ -112,4 +112,13 @@ public class VehicleServiceImpl implements IVehicleService{
         vehicleRepository.deleteVehicle(vehicle);
         return new ResponseDto("Vehículo eliminado exitosamente.");
     }
+
+    @Override
+    public List<VehicleDto> searchByTransmission(String type) {
+        List<Vehicle> filterList = vehicleRepository.findByTransmission(type);
+        if(filterList.isEmpty()){
+            throw new NotFoundException("No se encontraron vehículos con ese tipo de transmisión.");
+        }
+        return filterList.stream().map(x -> objectMapper.convertValue(x,VehicleDto.class)).toList();
+    }
 }

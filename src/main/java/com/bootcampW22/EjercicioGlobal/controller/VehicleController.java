@@ -75,4 +75,9 @@ public class VehicleController {
         return new ResponseEntity<>(vehicleService.deleteVehicle(id),HttpStatus.NO_CONTENT);
     }
 
+    //9
+    @GetMapping("/vehicles/transmission/{type}")
+    public ResponseEntity<List<VehicleDto>> searchByTransmission(@PathVariable("type")String type){
+        return new ResponseEntity<>(vehicleService.searchByTransmission(type),HttpStatus.OK);
+    }
 }
