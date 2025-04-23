@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class VehicleRepositoryImpl implements IVehicleRepository{
@@ -33,5 +34,15 @@ public class VehicleRepositoryImpl implements IVehicleRepository{
         vehicles= objectMapper.readValue(file,new TypeReference<List<Vehicle>>(){});
 
         listOfVehicles = vehicles;
+    }
+
+    @Override
+    public void addVehicle(Vehicle vehicle) {
+        listOfVehicles.add(vehicle);
+    }
+
+    @Override
+    public Optional<Vehicle> findById(Long id) {
+        return listOfVehicles.stream().filter(x -> x.getId().equals(id)).findFirst();
     }
 }
