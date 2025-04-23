@@ -23,4 +23,6 @@ public interface IVehicleRepository {
     void updateSpeed(Long id, String speed);
 
     Boolean exist(Long id);
+
+    List<Vehicle> findByFuel(String type);
 }

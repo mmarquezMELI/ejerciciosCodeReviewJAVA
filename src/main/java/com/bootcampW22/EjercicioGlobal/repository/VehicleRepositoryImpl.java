@@ -76,4 +76,9 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
     public Boolean exist(Long id) {
         return listOfVehicles.stream().anyMatch(x -> x.getId().equals(id));
     }
+
+    @Override
+    public List<Vehicle> findByFuel(String type) {
+        return listOfVehicles.stream().filter(x -> x.getFuel_type().equals(type)).toList();
+    }
 }

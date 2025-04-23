@@ -64,5 +64,10 @@ public class VehicleController {
     public ResponseEntity<ResponseDto> updateSpeed(@PathVariable("id") Long id,@RequestBody String speed){
         return new ResponseEntity<>(vehicleService.updateSpeed(id,speed),HttpStatus.OK);
     }
+    //7
+    @GetMapping("/vehicles/fuel_type/{type}")
+    public ResponseEntity<List<VehicleDto>> findByFuelType(@PathVariable("type") String type){
+        return new ResponseEntity<>(vehicleService.findFuelByType(type),HttpStatus.OK);
+    }
 
 }

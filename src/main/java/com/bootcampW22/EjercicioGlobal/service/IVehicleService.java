@@ -19,4 +19,6 @@ public interface IVehicleService {
     ResponseDto updateSpeed(Long id, String speed);
 
     ResponseDto addMassiveVehicle(List<VehicleDto> listVehicleDto);
+
+    List<VehicleDto> findFuelByType(String type);
 }

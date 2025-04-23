@@ -86,12 +86,24 @@ public class VehicleServiceImpl implements IVehicleService{
     @Override
     public ResponseDto addMassiveVehicle(List<VehicleDto> listVehicleDto) {
         for(VehicleDto vehicleDto :listVehicleDto){
-            if(vehicleRepository.exist(vehicleDto.getId())){
+            if(!vehicleRepository.exist(vehicleDto.getId())){
                 vehicleRepository.addVehicle(objectMapper.convertValue(vehicleDto,Vehicle.class));
             }else{
                 throw new ConflictException("Algún vehículo tiene un identificador ya existente.");
             }
         }
         return new ResponseDto("Vehículos creados exitosamente.");
+    }
+
+    @Override
+    public List<VehicleDto> findFuelByType(String type) {
+        List<Vehicle> listFilter = vehicleRepository.findByFuel(type);
+         if(listFilter.isEmpty())
+         {
+             throw new NotFoundException("No se encontraron vehículos con ese tipo de combustible.");
+         }
+        return listFilter.stream()
+                .map(x -> objectMapper.convertValue(x,VehicleDto.class))
+                .toList();
     }
 }
