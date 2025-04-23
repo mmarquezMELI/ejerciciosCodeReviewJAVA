@@ -13,4 +13,8 @@ public interface IVehicleRepository {
     Optional<Vehicle> findById(Long id);
 
     List<Vehicle> findByColorAndYear(String color, Integer year);
+
+    List<Vehicle> findByBrandAndRangeYear(String brand, Integer start_year, Integer end_year);
+
+    List<Vehicle> findByBrand(String brand);
 }

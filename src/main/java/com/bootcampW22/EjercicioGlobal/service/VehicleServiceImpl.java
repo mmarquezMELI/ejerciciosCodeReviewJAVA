@@ -48,11 +48,7 @@ public class VehicleServiceImpl implements IVehicleService{
         if(vehicleRepository.findById(vehicleDto.getId()).isPresent()){
             throw new ConflictException("Identificador del vehículo ya existente.");
         }
-        try{
             vehicleRepository.addVehicle(dtoToEntity(vehicleDto));
-        }catch (Exception e){
-            e.getMessage();
-        }
         return new ResponseDto("Vehículo creado exitosamente.");
     }
 
@@ -63,5 +59,23 @@ public class VehicleServiceImpl implements IVehicleService{
             throw new NotFoundException("No se encontraron vehículos con esos criterios.");
         }
        return listVehicle.stream().map(x -> entityToDto(x)).toList();
+    }
+
+    @Override
+    public List<VehicleDto> searchByBrandAndRangeYear(String brand, Integer start_year, Integer end_year) {
+        List<Vehicle> listVehicle = vehicleRepository.findByBrandAndRangeYear(brand,start_year,end_year);
+        if(listVehicle.isEmpty()){
+            throw new NotFoundException("No se encontraron vehículos con esos criterios.");
+        }
+        return listVehicle.stream().map(x -> objectMapper.convertValue(x,VehicleDto.class)).toList();
+    }
+
+    @Override
+    public Double averageSpeedByBrand(String brand) {
+        List<Vehicle> listByBrand = vehicleRepository.findByBrand(brand);
+        if(listByBrand.isEmpty()) {
+            throw new NotFoundException("No se encontraron vehículos de esa marca.");
+        }
+        return listByBrand.stream().mapToInt(x -> Integer.parseInt(x.getMax_speed())).average().getAsDouble();
     }
 }

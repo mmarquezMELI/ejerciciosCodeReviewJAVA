@@ -11,4 +11,8 @@ public interface IVehicleService {
     ResponseDto addVehicle(VehicleDto vehicleDto);
 
     List<VehicleDto> searchByColorAndYear(String color, Integer year);
+
+        List<VehicleDto> searchByBrandAndRangeYear(String brand, Integer start_year, Integer end_year);
+
+    Double averageSpeedByBrand(String brand);
 }
