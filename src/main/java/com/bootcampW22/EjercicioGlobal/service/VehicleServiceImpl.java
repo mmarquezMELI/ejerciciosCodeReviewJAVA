@@ -155,4 +155,15 @@ public class VehicleServiceImpl implements IVehicleService{
         }
         return filterList.stream().map(x -> objectMapper.convertValue(x,VehicleDto.class)).toList();
     }
+
+    @Override
+    public List<VehicleDto> searchByWeighRange(Double min, Double max) {
+       List<Vehicle> listFilter = vehicleRepository.searchByWeighRange(min,max);
+       if(listFilter.isEmpty()){
+           throw new NotFoundException("No se encontraron vehículos en ese rango de peso.");
+       }
+       return listFilter.stream()
+               .map(x -> objectMapper.convertValue(x,VehicleDto.class))
+               .toList();
+    }
 }

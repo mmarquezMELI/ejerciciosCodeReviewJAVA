@@ -31,4 +31,6 @@ public interface IVehicleService {
     Double averageCapacityByBrand(String brand);
 
     List<VehicleDto> searchByDimensions(String length, String width);
+
+    List<VehicleDto> searchByWeighRange(Double min, Double max);
 }

@@ -34,4 +34,6 @@ public interface IVehicleRepository {
     List<Vehicle> searchByBrand(String brand);
 
     List<Vehicle> searchByDimensions(Double minLength, Double maxLength, Double minWidth, Double maxWidth);
+
+    List<Vehicle> searchByWeighRange(Double min, Double max);
 }

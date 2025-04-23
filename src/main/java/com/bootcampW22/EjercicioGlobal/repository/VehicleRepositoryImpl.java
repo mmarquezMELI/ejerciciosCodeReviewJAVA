@@ -107,4 +107,9 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
         return listOfVehicles.stream().filter(x -> (x.getWidth() >= minWidth && x.getWidth() <= maxWidth) &&
                 x.getHeight() >= minLength && x.getHeight() <= maxLength).toList();
     }
+
+    @Override
+    public List<Vehicle> searchByWeighRange(Double min, Double max) {
+        return listOfVehicles.stream().filter(x -> x.getWeight() >= min && x.getWeight() <= max).toList();
+    }
 }

@@ -99,4 +99,10 @@ public class VehicleController {
         return new ResponseEntity<>(vehicleService.searchByDimensions(length,width),HttpStatus.OK);
 
     }
+
+    @GetMapping("/vehicles/weight")
+    public ResponseEntity<List<VehicleDto>> searchByWeighRange(@RequestParam("min")Double min,
+                                                               @RequestParam("max")Double max){
+        return new ResponseEntity<>(vehicleService.searchByWeighRange(min,max),HttpStatus.OK);
+    }
 }
