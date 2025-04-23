@@ -76,10 +76,8 @@ public class VehicleServiceImpl implements IVehicleService{
     }
     @Override
     public ResponseDto updateSpeed(Long id, String speed) {
-       if(!vehicleRepository.exist(id)){
-            throw new NotFoundException("No se encontró el vehículo.");
-        }
-        vehicleRepository.updateSpeed(id, speed);
+      Vehicle vehicle = vehicleRepository.findById(id).orElseThrow(() -> new NotFoundException("No se encontró el vehículo."));
+        vehicleRepository.updateSpeed(vehicle, speed);
         return new ResponseDto(" Velocidad del vehículo actualizada exitosamente.");
     }
 
@@ -105,5 +103,13 @@ public class VehicleServiceImpl implements IVehicleService{
         return listFilter.stream()
                 .map(x -> objectMapper.convertValue(x,VehicleDto.class))
                 .toList();
+    }
+
+    @Override
+    public ResponseDto deleteVehicle(Long id) {
+       Vehicle vehicle = vehicleRepository.findById(id)
+               .orElseThrow(() -> new NotFoundException("No se encontró el vehículo."));
+        vehicleRepository.deleteVehicle(vehicle);
+        return new ResponseDto("Vehículo eliminado exitosamente.");
     }
 }

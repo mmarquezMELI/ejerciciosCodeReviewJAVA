@@ -69,5 +69,10 @@ public class VehicleController {
     public ResponseEntity<List<VehicleDto>> findByFuelType(@PathVariable("type") String type){
         return new ResponseEntity<>(vehicleService.findFuelByType(type),HttpStatus.OK);
     }
+    //8
+    @DeleteMapping("/vehicles/{id}")
+    public ResponseEntity<ResponseDto> deleteVehicle(@PathVariable("id") Long id){
+        return new ResponseEntity<>(vehicleService.deleteVehicle(id),HttpStatus.NO_CONTENT);
+    }
 
 }

@@ -21,4 +21,6 @@ public interface IVehicleService {
     ResponseDto addMassiveVehicle(List<VehicleDto> listVehicleDto);
 
     List<VehicleDto> findFuelByType(String type);
+
+    ResponseDto deleteVehicle(Long id);
 }

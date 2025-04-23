@@ -68,8 +68,13 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
     }
 
     @Override
-    public void updateSpeed(Long id, String speed) {
-        listOfVehicles.stream().filter(x -> x.getId().equals(id)).findFirst().get().setMax_speed(speed);
+    public void updateSpeed(Vehicle vehicle, String speed) {
+        vehicle.setMax_speed(speed);
+    }
+
+    @Override
+    public List<Vehicle> findByFuel(String type) {
+        return listOfVehicles.stream().filter(x -> x.getFuel_type().equals(type)).toList();
     }
 
     @Override
@@ -78,7 +83,7 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
     }
 
     @Override
-    public List<Vehicle> findByFuel(String type) {
-        return listOfVehicles.stream().filter(x -> x.getFuel_type().equals(type)).toList();
+    public void deleteVehicle(Vehicle vehicle) {
+        listOfVehicles.remove(vehicle);
     }
 }
