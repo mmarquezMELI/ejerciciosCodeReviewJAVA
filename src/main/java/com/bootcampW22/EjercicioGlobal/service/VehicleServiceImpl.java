@@ -138,4 +138,21 @@ public class VehicleServiceImpl implements IVehicleService{
         }
         return listByBrand.stream().mapToInt(x -> x.getPassengers()).average().getAsDouble();
     }
+
+    @Override
+    public List<VehicleDto> searchByDimensions(String length, String width) {
+        String[] lengthRange = length.split("-",2);
+        Double minLength = Double.parseDouble(lengthRange[0]);
+        Double maxLength = Double.parseDouble(lengthRange[1]);
+
+        String[] widthRange = width.split("-",2);
+        Double minWidth = Double.parseDouble(widthRange[0]);
+        Double maxWidth = Double.parseDouble(widthRange[1]);
+
+        List<Vehicle> filterList =vehicleRepository.searchByDimensions(minLength,maxLength,minWidth,maxWidth);
+        if(filterList.isEmpty()){
+            throw new NotFoundException("No se encontraron vehículos con esas dimensiones.");
+        }
+        return filterList.stream().map(x -> objectMapper.convertValue(x,VehicleDto.class)).toList();
+    }
 }

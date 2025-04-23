@@ -92,4 +92,11 @@ public class VehicleController {
     public ResponseEntity<Double> averageCapacityByBrand(@PathVariable("brand")String brand){
         return new ResponseEntity<>(vehicleService.averageCapacityByBrand(brand),HttpStatus.OK);
     }
+
+    @GetMapping("/vehicles/dimensions")
+    public ResponseEntity<List<VehicleDto>> searchByDimensions(@RequestParam("length")String length,
+                                                               @RequestParam("width") String width){
+        return new ResponseEntity<>(vehicleService.searchByDimensions(length,width),HttpStatus.OK);
+
+    }
 }

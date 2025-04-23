@@ -32,4 +32,6 @@ public interface IVehicleRepository {
     void updateFuel(Vehicle vehicle, String fuel);
 
     List<Vehicle> searchByBrand(String brand);
+
+    List<Vehicle> searchByDimensions(Double minLength, Double maxLength, Double minWidth, Double maxWidth);
 }

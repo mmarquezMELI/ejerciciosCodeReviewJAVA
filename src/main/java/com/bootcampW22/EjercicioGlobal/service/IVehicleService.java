@@ -29,4 +29,6 @@ public interface IVehicleService {
     ResponseDto updateFuel(Long id, String fuel);
 
     Double averageCapacityByBrand(String brand);
+
+    List<VehicleDto> searchByDimensions(String length, String width);
 }

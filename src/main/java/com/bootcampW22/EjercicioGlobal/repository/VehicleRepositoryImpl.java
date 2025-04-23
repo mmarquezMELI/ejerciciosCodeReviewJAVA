@@ -101,4 +101,10 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
     public List<Vehicle> searchByBrand(String brand) {
        return listOfVehicles.stream().filter(x -> x.getBrand().equals(brand)).toList();
     }
+
+    @Override
+    public List<Vehicle> searchByDimensions(Double minLength, Double maxLength, Double minWidth, Double maxWidth) {
+        return listOfVehicles.stream().filter(x -> (x.getWidth() >= minWidth && x.getWidth() <= maxWidth) &&
+                x.getHeight() >= minLength && x.getHeight() <= maxLength).toList();
+    }
 }
