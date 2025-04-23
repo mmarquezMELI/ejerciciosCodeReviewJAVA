@@ -43,10 +43,6 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
         listOfVehicles.add(vehicle);
     }
 
-    @Override
-    public Optional<Vehicle> findById(Long id) {
-        return listOfVehicles.stream().filter(x -> x.getId().equals(id)).findFirst();
-    }
 
     @Override
     public List<Vehicle> findByColorAndYear(String color, Integer year) {
@@ -64,5 +60,20 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
     @Override
     public List<Vehicle> findByBrand(String brand) {
         return listOfVehicles.stream().filter(x -> x.getBrand().equals(brand)).toList();
+    }
+
+    @Override
+    public Optional<Vehicle> findById(Long id) {
+      return listOfVehicles.stream().filter(x -> x.getId().equals(id)).findAny();
+    }
+
+    @Override
+    public void updateSpeed(Long id, String speed) {
+        listOfVehicles.stream().filter(x -> x.getId().equals(id)).findFirst().get().setMax_speed(speed);
+    }
+
+    @Override
+    public Boolean exist(Long id) {
+        return listOfVehicles.stream().anyMatch(x -> x.getId().equals(id));
     }
 }

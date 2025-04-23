@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,12 +35,10 @@ public class VehicleServiceImpl implements IVehicleService{
                 .map(v -> mapper.convertValue(v,VehicleDto.class))
                 .collect(Collectors.toList());
     }
-
     private Vehicle dtoToEntity(VehicleDto vehicledto)
     {
      return objectMapper.convertValue(vehicledto,Vehicle.class);
     }
-
     private VehicleDto entityToDto(Vehicle vehicle){
         return objectMapper.convertValue(vehicle,VehicleDto.class);
     }
@@ -51,7 +50,6 @@ public class VehicleServiceImpl implements IVehicleService{
             vehicleRepository.addVehicle(dtoToEntity(vehicleDto));
         return new ResponseDto("Vehículo creado exitosamente.");
     }
-
     @Override
     public List<VehicleDto> searchByColorAndYear(String color, Integer year) {
         List<Vehicle>  listVehicle = vehicleRepository.findByColorAndYear(color,year);
@@ -60,7 +58,6 @@ public class VehicleServiceImpl implements IVehicleService{
         }
        return listVehicle.stream().map(x -> entityToDto(x)).toList();
     }
-
     @Override
     public List<VehicleDto> searchByBrandAndRangeYear(String brand, Integer start_year, Integer end_year) {
         List<Vehicle> listVehicle = vehicleRepository.findByBrandAndRangeYear(brand,start_year,end_year);
@@ -69,7 +66,6 @@ public class VehicleServiceImpl implements IVehicleService{
         }
         return listVehicle.stream().map(x -> objectMapper.convertValue(x,VehicleDto.class)).toList();
     }
-
     @Override
     public Double averageSpeedByBrand(String brand) {
         List<Vehicle> listByBrand = vehicleRepository.findByBrand(brand);
@@ -77,5 +73,25 @@ public class VehicleServiceImpl implements IVehicleService{
             throw new NotFoundException("No se encontraron vehículos de esa marca.");
         }
         return listByBrand.stream().mapToInt(x -> Integer.parseInt(x.getMax_speed())).average().getAsDouble();
+    }
+    @Override
+    public ResponseDto updateSpeed(Long id, String speed) {
+       if(!vehicleRepository.exist(id)){
+            throw new NotFoundException("No se encontró el vehículo.");
+        }
+        vehicleRepository.updateSpeed(id, speed);
+        return new ResponseDto(" Velocidad del vehículo actualizada exitosamente.");
+    }
+
+    @Override
+    public ResponseDto addMassiveVehicle(List<VehicleDto> listVehicleDto) {
+        for(VehicleDto vehicleDto :listVehicleDto){
+            if(vehicleRepository.exist(vehicleDto.getId())){
+                vehicleRepository.addVehicle(objectMapper.convertValue(vehicleDto,Vehicle.class));
+            }else{
+                throw new ConflictException("Algún vehículo tiene un identificador ya existente.");
+            }
+        }
+        return new ResponseDto("Vehículos creados exitosamente.");
     }
 }

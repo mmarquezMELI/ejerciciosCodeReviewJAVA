@@ -21,7 +21,7 @@ public class VehicleController {
     }
 
     //0
-    @GetMapping()
+    @GetMapping("/vehicles")
     public ResponseEntity<?> getVehicles(){
         return new ResponseEntity<>(vehicleService.searchAllVehicles(), HttpStatus.OK);
     }
@@ -52,6 +52,17 @@ public class VehicleController {
     @GetMapping("/vehicles/average_speed/brand/{brand}")
     public ResponseEntity<Double> averageSpeedByBrand(@PathVariable String brand){
         return new ResponseEntity<>(vehicleService.averageSpeedByBrand(brand),HttpStatus.OK);
+    }
+
+    //5
+    @PostMapping("/vehicles/batch")
+    public ResponseEntity<ResponseDto> addMassiveVehicles(@RequestBody List<VehicleDto> listVehicleDto){
+        return new ResponseEntity<>(vehicleService.addMassiveVehicle(listVehicleDto),HttpStatus.CREATED);
+    }
+    //6
+    @PutMapping("/vehicles/{id}/update_speed")
+    public ResponseEntity<ResponseDto> updateSpeed(@PathVariable("id") Long id,@RequestBody String speed){
+        return new ResponseEntity<>(vehicleService.updateSpeed(id,speed),HttpStatus.OK);
     }
 
 }

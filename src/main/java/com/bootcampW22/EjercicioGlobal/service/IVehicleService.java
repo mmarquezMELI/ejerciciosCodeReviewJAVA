@@ -15,4 +15,8 @@ public interface IVehicleService {
         List<VehicleDto> searchByBrandAndRangeYear(String brand, Integer start_year, Integer end_year);
 
     Double averageSpeedByBrand(String brand);
+
+    ResponseDto updateSpeed(Long id, String speed);
+
+    ResponseDto addMassiveVehicle(List<VehicleDto> listVehicleDto);
 }

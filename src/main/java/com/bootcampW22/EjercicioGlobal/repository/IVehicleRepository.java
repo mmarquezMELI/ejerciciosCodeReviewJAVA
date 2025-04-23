@@ -10,11 +10,17 @@ public interface IVehicleRepository {
 
     void addVehicle(Vehicle vehicle);
 
-    Optional<Vehicle> findById(Long id);
+
 
     List<Vehicle> findByColorAndYear(String color, Integer year);
 
     List<Vehicle> findByBrandAndRangeYear(String brand, Integer start_year, Integer end_year);
 
     List<Vehicle> findByBrand(String brand);
+
+    Optional<Vehicle> findById(Long id);
+
+    void updateSpeed(Long id, String speed);
+
+    Boolean exist(Long id);
 }
