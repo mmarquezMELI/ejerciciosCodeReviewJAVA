@@ -28,4 +28,6 @@ public interface IVehicleRepository {
     void deleteVehicle(Vehicle vehicle);
 
     List<Vehicle> findByTransmission(String transmission);
+
+    void updateFuel(Vehicle vehicle, String fuel);
 }

@@ -80,4 +80,13 @@ public class VehicleController {
     public ResponseEntity<List<VehicleDto>> searchByTransmission(@PathVariable("type")String type){
         return new ResponseEntity<>(vehicleService.searchByTransmission(type),HttpStatus.OK);
     }
+
+    //10
+    @PutMapping("/vehicles/{id}/update_fuel")
+    public ResponseEntity<ResponseDto> updateFuel(@PathVariable("id")Long id,@RequestBody String fuel){
+        return new ResponseEntity<>(vehicleService.updateFuel(id,fuel),HttpStatus.OK);
+    }
+
+    //11
+    
 }

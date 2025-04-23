@@ -121,4 +121,12 @@ public class VehicleServiceImpl implements IVehicleService{
         }
         return filterList.stream().map(x -> objectMapper.convertValue(x,VehicleDto.class)).toList();
     }
+
+    @Override
+    public ResponseDto updateFuel(Long id, String fuel) {
+        Vehicle vehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("No se encontró el vehículo."));
+        vehicleRepository.updateFuel(vehicle,fuel);
+        return new ResponseDto("Tipo de combustible del vehículo actualizado exitosamente.");
+    }
 }

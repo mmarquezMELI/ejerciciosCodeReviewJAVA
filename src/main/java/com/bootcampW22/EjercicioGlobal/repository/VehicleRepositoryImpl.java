@@ -91,4 +91,9 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
     public List<Vehicle> findByTransmission(String transmission) {
         return listOfVehicles.stream().filter(x -> x.getTransmission().equals(transmission)).toList();
     }
+
+    @Override
+    public void updateFuel(Vehicle vehicle, String fuel) {
+        vehicle.setFuel_type(fuel);
+    }
 }
