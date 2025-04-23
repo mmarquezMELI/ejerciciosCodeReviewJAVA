@@ -129,4 +129,13 @@ public class VehicleServiceImpl implements IVehicleService{
         vehicleRepository.updateFuel(vehicle,fuel);
         return new ResponseDto("Tipo de combustible del vehículo actualizado exitosamente.");
     }
+
+    @Override
+    public Double averageCapacityByBrand(String brand) {
+        List<Vehicle> listByBrand = vehicleRepository.searchByBrand(brand);
+        if(listByBrand.isEmpty()){
+            throw new NotFoundException("No se encontraron vehículos de esa marca.");
+        }
+        return listByBrand.stream().mapToInt(x -> x.getPassengers()).average().getAsDouble();
+    }
 }

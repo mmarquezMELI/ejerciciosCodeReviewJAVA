@@ -30,4 +30,6 @@ public interface IVehicleRepository {
     List<Vehicle> findByTransmission(String transmission);
 
     void updateFuel(Vehicle vehicle, String fuel);
+
+    List<Vehicle> searchByBrand(String brand);
 }

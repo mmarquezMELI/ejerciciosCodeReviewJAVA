@@ -27,4 +27,6 @@ public interface IVehicleService {
     List<VehicleDto> searchByTransmission(String type);
 
     ResponseDto updateFuel(Long id, String fuel);
+
+    Double averageCapacityByBrand(String brand);
 }

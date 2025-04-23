@@ -88,5 +88,8 @@ public class VehicleController {
     }
 
     //11
-    
+    @GetMapping("/vehicles/average_capacity/brand/{brand}")
+    public ResponseEntity<Double> averageCapacityByBrand(@PathVariable("brand")String brand){
+        return new ResponseEntity<>(vehicleService.averageCapacityByBrand(brand),HttpStatus.OK);
+    }
 }

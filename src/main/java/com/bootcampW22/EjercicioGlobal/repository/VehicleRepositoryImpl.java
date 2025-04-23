@@ -96,4 +96,9 @@ public class VehicleRepositoryImpl implements IVehicleRepository {
     public void updateFuel(Vehicle vehicle, String fuel) {
         vehicle.setFuel_type(fuel);
     }
+
+    @Override
+    public List<Vehicle> searchByBrand(String brand) {
+       return listOfVehicles.stream().filter(x -> x.getBrand().equals(brand)).toList();
+    }
 }
