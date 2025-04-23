@@ -39,6 +39,10 @@ public class VehicleServiceImpl implements IVehicleService{
     {
      return objectMapper.convertValue(vehicledto,Vehicle.class);
     }
+
+    private VehicleDto entityToDto(Vehicle vehicle){
+        return objectMapper.convertValue(vehicle,VehicleDto.class);
+    }
     @Override
     public ResponseDto addVehicle(VehicleDto vehicleDto) {
         if(vehicleRepository.findById(vehicleDto.getId()).isPresent()){
@@ -50,5 +54,14 @@ public class VehicleServiceImpl implements IVehicleService{
             e.getMessage();
         }
         return new ResponseDto("Vehículo creado exitosamente.");
+    }
+
+    @Override
+    public List<VehicleDto> searchByColorAndYear(String color, Integer year) {
+        List<Vehicle>  listVehicle = vehicleRepository.findByColorAndYear(color,year);
+        if(listVehicle.isEmpty()) {
+            throw new NotFoundException("No se encontraron vehículos con esos criterios.");
+        }
+       return listVehicle.stream().map(x -> entityToDto(x)).toList();
     }
 }

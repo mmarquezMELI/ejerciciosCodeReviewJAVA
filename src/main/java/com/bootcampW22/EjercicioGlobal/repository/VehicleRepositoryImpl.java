@@ -45,4 +45,9 @@ public class VehicleRepositoryImpl implements IVehicleRepository{
     public Optional<Vehicle> findById(Long id) {
         return listOfVehicles.stream().filter(x -> x.getId().equals(id)).findFirst();
     }
+
+    @Override
+    public List<Vehicle> findByColorAndYear(String color, Integer year) {
+        return listOfVehicles.stream().filter(x -> x.getColor().equals(color) && x.getYear() == year).toList();
+    }
 }
